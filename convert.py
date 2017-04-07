@@ -6,8 +6,8 @@ import os
 import argparse
 
 
-def nsynth_generator(tfrecords_filename):
-    for serialized_example in tf.python_io.tf_record_iterator(tfrecords_filename):
+def nsynth_generator(tfrecords):
+    for serialized_example in tf.python_io.tf_record_iterator(tfrecords):
         example = tf.train.Example()
         example.ParseFromString(serialized_example)
         f = example.features.feature
@@ -59,11 +59,7 @@ if __name__ == '__main__':
         os.makedirs(args.out_dir)
 
     for data, audio in nsynth_generator(args.input):
-        base_file_str = '_'.join([
-            data['instrument_family_str'],
-            str(data['pitch']),
-            str(data['note'])
-        ])
+        base_file_str = data['note_str']
 
         json_path = os.path.join(args.out_dir, base_file_str + '.json')
         audio_path = os.path.join(args.out_dir, base_file_str + '.wav')
