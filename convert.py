@@ -38,7 +38,7 @@ def nsynth_generator(tfrecords):
             'instrument_family_str':
                 f['instrument_family_str'].bytes_list.value[0],
             'instrument_source':
-                f['instrument_family'].int64_list.value[0],
+                f['instrument_source'].int64_list.value[0],
             'instrument_source_str':
                 f['instrument_source_str'].bytes_list.value[0],
         }
